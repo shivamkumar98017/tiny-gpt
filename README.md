@@ -1,20 +1,20 @@
-<p align="center">
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" alt="PyTorch" width="100">
-</p>
+<div align="center">
 
-<h1 align="center">Tiny GPT</h1>
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" alt="PyTorch" width="90">
 
-<p align="center">
-  <b>A minimal GPT language model built completely from scratch in PyTorch</b><br>
-  Understand every line. No magic. No Hugging Face.
-</p>
+# Tiny GPT
 
-<p align="center">
-  <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=flat&logo=pytorch&logoColor=white" alt="PyTorch">
-  <img src="https://img.shields.io/badge/Python-3.8+-3776AB?style=flat&logo=python&logoColor=white" alt="Python">
-  <img src="https://img.shields.io/badge/From%20Scratch-Yes-blue?style=flat" alt="From Scratch">
-  <img src="https://img.shields.io/badge/Educational-Yes-orange?style=flat" alt="Educational">
-</p>
+**A minimal GPT language model built completely from scratch in PyTorch**  
+Understand every line. No magic. No Hugging Face.
+
+<br>
+
+![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.8+-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![From Scratch](https://img.shields.io/badge/From%20Scratch-Yes-3B82F6?style=for-the-badge)
+![Educational](https://img.shields.io/badge/Educational-Yes-F59E0B?style=for-the-badge)
+
+</div>
 
 ---
 
@@ -144,16 +144,16 @@ After reading this code, the internals of GPT-2 / GPT-3 / Llama will feel much l
 
 ---
 
-### Author
+<div align="center">
 
 **Shivam Kumar**  
 AI/ML Engineer • Cybersecurity Enthusiast  
 Motihari, Bihar
 
-[GitHub](https://github.com/shivamkumar98017) • [Instagram](https://www.instagram.com/shivamkumar98017/) • [Email](mailto:shivamk34442@gmail.com)
+[GitHub](https://github.com/shivamkumar98017) · [Instagram](https://www.instagram.com/shivamkumar98017/) · [Email](mailto:shivamk34442@gmail.com)
 
----
+<br>
 
-<p align="center">
-  <sub>Made with ❤️ and pure PyTorch</sub>
-</p>
+<sub>Made with ❤️ and pure PyTorch</sub>
+
+</div>
