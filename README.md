@@ -1,15 +1,19 @@
-# Tiny GPT
-
 <p align="center">
-  <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white" alt="PyTorch"/>
-  <img src="https://img.shields.io/badge/Python-3.8+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"/>
-  <img src="https://img.shields.io/badge/From%20Scratch-Yes-blue?style=for-the-badge" alt="From Scratch"/>
-  <img src="https://img.shields.io/badge/Educational-Yes-orange?style=for-the-badge" alt="Educational"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" alt="PyTorch" width="100">
 </p>
+
+<h1 align="center">Tiny GPT</h1>
 
 <p align="center">
   <b>A minimal GPT language model built completely from scratch in PyTorch</b><br>
   Understand every line. No magic. No Hugging Face.
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=flat&logo=pytorch&logoColor=white" alt="PyTorch">
+  <img src="https://img.shields.io/badge/Python-3.8+-3776AB?style=flat&logo=python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/From%20Scratch-Yes-blue?style=flat" alt="From Scratch">
+  <img src="https://img.shields.io/badge/Educational-Yes-orange?style=flat" alt="Educational">
 </p>
 
 ---
@@ -151,5 +155,5 @@ Motihari, Bihar
 ---
 
 <p align="center">
-  Made with ❤️ and pure PyTorch
+  <sub>Made with ❤️ and pure PyTorch</sub>
 </p>
