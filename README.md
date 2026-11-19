@@ -37,6 +37,7 @@ Perfect for learning how modern LLMs actually work under the hood.
 | Feed-Forward Network      | Position-wise MLP inside each block              |
 | Residual + LayerNorm      | Stabilizes training                              |
 | Autoregressive Generation | Generates text one token at a time               |
+| Temperature & Top-k       | Controllable sampling for creative vs focused output |
 
 ---
 
@@ -79,6 +80,27 @@ python train.py
 | `learning_rate` | 1e-3      | AdamW learning rate                  |
 | `epochs`        | 1500      | Number of training steps             |
 | `batch_size`    | 16        | Batch size                           |
+
+---
+
+### Generation Controls
+
+The `generate()` method now supports **temperature** and **top-k** sampling:
+
+```python
+# Default (temperature=1.0, no top-k)
+out = model.generate(context, max_new_tokens=15)
+
+# More creative / diverse
+out = model.generate(context, max_new_tokens=15, temperature=1.2, top_k=5)
+
+# More focused / deterministic
+out = model.generate(context, max_new_tokens=15, temperature=0.7, top_k=3)
+```
+
+- **temperature > 1.0** → more random / creative
+- **temperature < 1.0** → more deterministic / focused
+- **top_k** → only sample from the top-k most likely tokens
 
 ---
 
@@ -128,7 +150,7 @@ This repo forces you to implement every important piece yourself:
 - Multi-head attention
 - Residual connections + LayerNorm
 - Simple training loop
-- Greedy / multinomial sampling for generation
+- Temperature + top-k sampling for generation
 
 After reading this code, the internals of GPT-2 / GPT-3 / Llama will feel much less mysterious.
 
@@ -136,7 +158,7 @@ After reading this code, the internals of GPT-2 / GPT-3 / Llama will feel much l
 
 ### Future Ideas
 
-- [ ] Add temperature & top-k sampling
+- [x] Add temperature & top-k sampling
 - [ ] Save / load checkpoints
 - [ ] Character-level version
 - [ ] Increase model size and train on a bigger corpus
