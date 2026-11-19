@@ -88,11 +88,26 @@ class TinyGPT(nn.Module):
         return logits, loss
 
     @torch.no_grad()
-    def generate(self, idx, max_new_tokens):
+    def generate(self, idx, max_new_tokens, temperature=1.0, top_k=None):
+        """
+        Generate tokens autoregressively.
+
+        Args:
+            idx: (B, T) starting context indices
+            max_new_tokens: number of new tokens to generate
+            temperature: >1.0 = more random, <1.0 = more deterministic (default 1.0)
+            top_k: if set, only sample from the top-k most likely tokens
+        """
         for _ in range(max_new_tokens):
             idx_cond = idx[:, -block_size:]
             logits, _ = self(idx_cond)
-            logits = logits[:, -1, :]
+            logits = logits[:, -1, :] / temperature   # scale by temperature
+
+            # Optional top-k filtering
+            if top_k is not None:
+                v, _ = torch.topk(logits, min(top_k, logits.size(-1)))
+                logits[logits < v[:, [-1]]] = float('-inf')
+
             probs = F.softmax(logits, dim=-1)
             next_idx = torch.multinomial(probs, 1)
             idx = torch.cat((idx, next_idx), dim=1)
@@ -126,7 +141,18 @@ context = torch.tensor(
     [[word2idx["my"], word2idx["name"], word2idx["is"], word2idx["shivam"]]],
     dtype=torch.long,
 )
-out = model.generate(context, max_new_tokens=15)
 
-print("Generated text:")
+# Default generation (temperature=1.0, no top-k)
+out = model.generate(context, max_new_tokens=15)
+print("Generated text (default):")
 print(" ".join(idx2word[int(i)] for i in out[0]))
+
+# More creative / diverse generation
+out_creative = model.generate(context.clone(), max_new_tokens=15, temperature=1.2, top_k=5)
+print("\nGenerated text (temp=1.2, top_k=5):")
+print(" ".join(idx2word[int(i)] for i in out_creative[0]))
+
+# More focused / deterministic generation
+out_focused = model.generate(context.clone(), max_new_tokens=15, temperature=0.7, top_k=3)
+print("\nGenerated text (temp=0.7, top_k=3):")
+print(" ".join(idx2word[int(i)] for i in out_focused[0]))
