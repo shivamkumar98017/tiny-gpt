@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+import os
 
 from transformer_blocks import Block
 
@@ -15,6 +16,7 @@ n_layers = 2
 lr = 1e-3
 epochs = 1500
 batch_size = 16
+checkpoint_path = "tiny_gpt_checkpoint.pt"
 
 
 # ----------------------------
@@ -114,11 +116,50 @@ class TinyGPT(nn.Module):
         return idx
 
 
+def save_checkpoint(model, optimizer, step, loss, path=checkpoint_path):
+    """Save model + optimizer state so training can be resumed later."""
+    torch.save({
+        "model_state_dict": model.state_dict(),
+        "optimizer_state_dict": optimizer.state_dict(),
+        "step": step,
+        "loss": loss,
+        "vocab_size": vocab_size,
+        "word2idx": word2idx,
+        "idx2word": idx2word,
+        "config": {
+            "block_size": block_size,
+            "embedding_dim": embedding_dim,
+            "n_heads": n_heads,
+            "n_layers": n_layers,
+        },
+    }, path)
+    print(f"Checkpoint saved → {path}")
+
+
+def load_checkpoint(model, optimizer=None, path=checkpoint_path):
+    """Load a previously saved checkpoint."""
+    if not os.path.exists(path):
+        print(f"No checkpoint found at {path}")
+        return None
+
+    checkpoint = torch.load(path, map_location="cpu", weights_only=False)
+    model.load_state_dict(checkpoint["model_state_dict"])
+
+    if optimizer is not None and "optimizer_state_dict" in checkpoint:
+        optimizer.load_state_dict(checkpoint["optimizer_state_dict"])
+
+    print(f"Checkpoint loaded from {path} (step={checkpoint.get('step')}, loss={checkpoint.get('loss'):.4f})")
+    return checkpoint
+
+
 # ----------------------------
 # Training
 # ----------------------------
 model = TinyGPT()
 optimizer = torch.optim.AdamW(model.parameters(), lr=lr)
+
+# Uncomment the next line if you want to resume from a previous checkpoint
+# load_checkpoint(model, optimizer)
 
 print("\nTraining started...")
 for step in range(epochs):
@@ -132,6 +173,9 @@ for step in range(epochs):
         print(f"Step {step:4d} | loss = {loss.item():.4f}")
 
 print("Training finished!\n")
+
+# Save final checkpoint
+save_checkpoint(model, optimizer, step=epochs - 1, loss=loss.item())
 
 
 # ----------------------------
